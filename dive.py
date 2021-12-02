@@ -1,23 +1,4 @@
 
-def solve(lines):
-    horiz = 0
-    depth = 0
-    for line in lines:
-        parts = line.strip().split(" ")
-        if len(parts) != 2:
-            print(f"Error {line} is malformed")
-            return None
-        if parts[0] == "forward":
-            horiz += int(parts[1])
-        elif parts[0] == "down":
-            depth += int(parts[1])
-        elif parts[0] == "up":
-            depth -= int(parts[1])
-        else:
-            print(f"Unknown command in {line}")
-            return None
-    return horiz * depth
-
 def solve2(lines):
     horiz = 0
     depth = 0
@@ -38,10 +19,9 @@ def solve2(lines):
         else:
             print(f"Unknown command in {line}")
             return None
-    return (horiz, depth, horiz * depth)
+    return (horiz * aim, horiz * depth)
 
 
 f = open('data/day2.txt')
 lines = f.readlines()
-print(f"Solution 1 is {solve(lines)}")
-print(f"Solution 2 is {solve2(lines)}")
+print(f"Solutions are {solve2(lines)}")
