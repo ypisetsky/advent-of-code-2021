@@ -2,7 +2,7 @@ from util import getlines
 
 data = getlines("3")
 
-linelen = len(data[0]) - 1
+linelen = len(data[0])
 datalen = len(data)
 
 gamma = 0
@@ -12,11 +12,8 @@ lines = []
 
 for i in range(linelen):
     count = 0
-    for j in data:
-        if len(j) < linelen:
-            continue
-        if i == 0: lines.append(j.strip())
-        if j[i] == '1':
+    for line in data:
+        if line[i] == '1':
             count += 1
     gamma *= 2
     epsilon *= 2
@@ -32,23 +29,23 @@ def partition(strings, position):
     ret = dict({'0': [], '1': []})
     for string in strings:
         ret[string[position]].append(string)
-    if len(ret['0']) > len(ret['1']):
-        return (ret['0'], ret['1'])
-    else:
-        return (ret['1'], ret['0'])
+    vals = list(ret.values())
+    if len(ret['0']) <= len(ret['1']):
+        vals.reverse()
+    return vals
 
-orig_lines = lines
+oxygen_lines = data
 cursor = 0
-while len(lines) > 1:
-    lines,_ = partition(lines, cursor)
+while len(oxygen_lines) > 1:
+    oxygen_lines,_ = partition(oxygen_lines, cursor)
     cursor += 1
-oxygen = int(lines[0], 2)
+oxygen = int(oxygen_lines[0], 2)
 
-lines = orig_lines
+scrubber_lines = data
 cursor = 0
-while len(lines) > 1:
-    _, lines = partition(lines, cursor)
+while len(scrubber_lines) > 1:
+    _, scrubber_lines = partition(scrubber_lines, cursor)
     cursor += 1
-scrubber = int(lines[0], 2)
+scrubber = int(scrubber_lines[0], 2)
 
 print(f"Solution 2 {oxygen} {scrubber} {oxygen * scrubber}")
