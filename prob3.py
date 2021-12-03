@@ -15,12 +15,10 @@ for i in range(linelen):
     for line in data:
         if line[i] == '1':
             count += 1
-    gamma *= 2
-    epsilon *= 2
     if count > datalen / 2:
-        gamma += 1
+        gamma += 2 ** (linelen - i - 1)
     else:
-        epsilon += 1
+        epsilon += 2 ** (linelen - i - 1)
 
 print(f"Solution 1 is {gamma} {epsilon} {gamma * epsilon}")
 
@@ -35,17 +33,15 @@ def partition(strings, position):
     return vals
 
 oxygen_lines = data
-cursor = 0
-while len(oxygen_lines) > 1:
-    oxygen_lines,_ = partition(oxygen_lines, cursor)
-    cursor += 1
+for i in range(linelen):
+    oxygen_lines,_ = partition(oxygen_lines, i)
+    if len(oxygen_lines) == 1: break
 oxygen = int(oxygen_lines[0], 2)
 
 scrubber_lines = data
-cursor = 0
-while len(scrubber_lines) > 1:
-    _, scrubber_lines = partition(scrubber_lines, cursor)
-    cursor += 1
+for i in range(linelen):
+    _, scrubber_lines = partition(scrubber_lines, i)
+    if len(scrubber_lines) == 1: break
 scrubber = int(scrubber_lines[0], 2)
 
 print(f"Solution 2 {oxygen} {scrubber} {oxygen * scrubber}")
