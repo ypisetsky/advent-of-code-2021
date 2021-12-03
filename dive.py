@@ -25,3 +25,19 @@ def solve2(lines):
 f = open('data/day2.txt')
 lines = f.readlines()
 print(f"Solutions are {solve2(lines)}")
+
+
+from util import tokenedlines
+data = tokenedlines(2)
+horiz = 0
+depth = 0
+aim = 0
+for parts in data:
+    if parts[0] == "forward":
+        horiz += parts[1]
+        depth += parts[1] * aim
+    elif parts[0] == "down":
+        aim += parts[1]
+    else:
+        aim -= parts[1]
+print(f"Results are {horiz*aim} and {horiz*depth}")
