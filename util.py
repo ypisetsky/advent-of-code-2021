@@ -2,6 +2,10 @@ def getlines(day):
     with open(f"data/day{day}.txt") as f:
         return [line.strip() for line in f.readlines() if len(line) > 1]
 
+def getblankseparated(day):
+    with open(f"data/day{day}.txt") as f:
+        return f.read().split("\n\n")
+
 def tokenedlines(day):
     lines = getlines(day)
     ret = []
