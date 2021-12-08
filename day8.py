@@ -1,4 +1,5 @@
 from collections import defaultdict
+from itertools import permutations
 from util import getlines, getblankseparated, tokenedlines
 file = "8"
 #file = "8small"
@@ -8,8 +9,8 @@ ret = 0
 NUMS = ["abcefg", "cf", "acdeg", "acdfg", "bcdf", "abdfg", "abdefg", "acf", "abcdefg", "abcdfg"]
 NUMS_LOOKUP = {pattern: i for i, pattern in enumerate(NUMS)}
 
-all = list("abcdefg")
-def generate_permutations(remain=all):
+ALL = list("abcdefg")
+def generate_permutations(remain=ALL):
     if remain == []:
         return ['']
     ret = []
@@ -35,7 +36,8 @@ def check_permutation(permutation, nums):
 lines = tokenedlines(file)
 part1 = 0
 for line in lines:
-    for permutation in generate_permutations():
+    #for permutation in generate_permutations():
+    for permutation in permutations(ALL):
         if check_permutation(permutation, line[:10]):
             x = 0
             for i in range(11, 15):
