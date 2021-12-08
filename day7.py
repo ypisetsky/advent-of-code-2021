@@ -9,20 +9,17 @@ best = None
 def getcost(data, pos):
     ret = 0
     for el in data:
-        d = abs(el - pos)
-        ret += d
+        delta = abs(el - pos)
+        ret += delta
         #ret += d * (d+1) / 2
     return int(ret)
 
 bestpos = 0
 for i in range(data[0], data[-1] + 1):
     cost = getcost(data, i)
-    #print(f"cost at {i} is {cost}")
     if (best is None) or best > cost:
         best = cost
         bestpos = i
-
-print(f"Cost is {getcost(data, data[len(data) // 2])}")
 
 print(f"Best is {best} at {bestpos}")
 
