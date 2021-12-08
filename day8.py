@@ -33,15 +33,18 @@ def check_permutation(permutation, nums):
 
 
 lines = tokenedlines(file)
-
+part1 = 0
 for line in lines:
     for permutation in generate_permutations():
         if check_permutation(permutation, line[:10]):
             x = 0
             for i in range(11, 15):
-                x = 10 * x + NUMS_LOOKUP[transform(line[i], permutation)]
+                val = NUMS_LOOKUP[transform(line[i], permutation)]
+                if val in [1,4,7,8]:
+                    part1 += 1
+                x = 10 * x + val
             ret += x
 
 
 #print(f"all perms are {generate_permutations()}")
-print(f"Answer is {ret}")
+print(f"Answers are {part1}, {ret}")
