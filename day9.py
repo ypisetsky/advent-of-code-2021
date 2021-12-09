@@ -1,34 +1,23 @@
 from collections import defaultdict
 from itertools import permutations, product
-from util import getlines, getblankseparated, tokenedlines
+from util import getlines, getblankseparated, tokenedlines, neighbors4
 file = "9"
 #file = "9small"
 
 rawdata = getlines(file)
 data = [[int(c) for c in row] for row in rawdata]
 
-def idx(data, i, j):
-    if i < 0 or j < 0 or i >= len(data) or j >= len(data[0]):
-        return 999
-    return data[i][j]
-
 def is_low(data, i, j):
-    val = idx(data, i, j)
-    if val >= idx(data, i-1, j):
-        return False
-    if val >= idx(data, i+1, j):
-        return False
-    if val >= idx(data, i, j-1):
-        return False
-    if val >= idx(data, i, j+1):
-        return False
+    for x,y in neighbors4(i, j, data):
+        if data[i][j] >= data[x][y]:
+            return False
     return True
+
 
 def neighbors(data, i, j):
     ret = []
-    possible = [(i-1, j), (i+1, j), (i, j+1), (i, j-1)]
-    for x,y in possible:
-        if idx(data, x, y) < 9:
+    for x,y in neighbors4(i, j, data):
+        if data[x][y] < 9:
             ret.append((x,y))
     return ret
 
