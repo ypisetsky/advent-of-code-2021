@@ -42,3 +42,14 @@ def neighbors_helper(max_i, max_j, candidates):
         if in_range(i, j, max_i, max_j):
             ret.append((i, j))
     return ret
+
+def printgrid(points):
+    maxX = max(p[0] for p in points)
+    maxY = max(p[1] for p in points)
+    for y in range(maxY + 1):
+        for x in range(maxX + 1):
+            if (x,y) in points:
+                print('X', end='')
+            else:
+                print(' ', end='')
+        print("")
