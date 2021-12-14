@@ -17,6 +17,7 @@ for row in data[1:]:
 print(map)
 
 def step(pattern):
+    '''Runs a step of doubling'''
     new_chars = []
     for i in range(len(pattern) - 1):
         new_chars.append(map[pattern[i:i+2]])
@@ -27,6 +28,7 @@ def step(pattern):
 
 TENMEMO = {}
 def tenstep(pair):
+    '''Memoized run 10 steps of the algorithm for a pair, returning the added characters'''
     if pair in TENMEMO:
         return TENMEMO[pair]
     p = pair
@@ -36,6 +38,7 @@ def tenstep(pair):
     return TENMEMO[pair]
 
 def stepby10(pattern):
+    '''Steps the pattern forward 10 steps, taking advantage of tenstep's memoization'''
     new_chars = []
     for i in range(len(pattern) - 1):
         new_chars.append(tenstep(pattern[i:i+2]))
@@ -47,6 +50,7 @@ pattern = stepby10(stepby10(pattern))
 
 MEMO = {}
 def getcounts(pair):
+    '''Get the counts of characters when applying 20 steps to the given pair, memoized'''
     if pair in MEMO:
         return MEMO[pair]
     p = stepby10(stepby10(pair))
@@ -63,6 +67,7 @@ def get_countdict():
 
 counts = get_countdict()
 for i in range(len(pattern) - 1):
+    '''For each pair in the 20 step output, add the counts on applying it for 20 more steps'''
     for c,n in getcounts(pattern[i:i+2]).items():
         counts[c] += n
     if i > 0:
