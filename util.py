@@ -23,6 +23,8 @@ def tokenedlines(day):
         ret.append(parsed_parts)
     return ret
 
+def as_ints(arr):
+    return tuple(int(x) for x in arr)
 
 def in_range(i, j, max_i, max_j):
     return i >= 0 and j >= 0 and i < max_i and j < max_j
