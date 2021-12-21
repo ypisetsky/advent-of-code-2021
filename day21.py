@@ -8,6 +8,7 @@ import heapq
 import math
 from util import getlines, getblankseparated, tokenedlines, neighbors4
 import io
+from functools import cache
 file = "21"
 file = "21small"
 
@@ -24,12 +25,10 @@ def runturn(initial_score, initial_pos, die):
     final_pos = (initial_pos + pos + pos2 + pos3 - 1) % 10 + 1
     return final, initial_score + final_pos, final_pos
 
-MEMO = {}
+@cache
 def getpossibilities(curplayerscore, otherscore, curplayerpos, otherplayerpos):
     if otherscore >= 21:
         return 0, 1
-    if (curplayerscore, otherscore, curplayerpos, otherplayerpos) in MEMO:
-        return MEMO[curplayerscore, otherscore, curplayerpos, otherplayerpos]
     wins, losses = 0, 0
     ROLLS = {3: 1, 4: 3, 5: 6, 6: 7, 7: 6, 8: 3, 9: 1}
     for roll, freq in ROLLS.items():
@@ -37,8 +36,9 @@ def getpossibilities(curplayerscore, otherscore, curplayerpos, otherplayerpos):
         newlosses, newwins = getpossibilities(otherscore, curplayerscore + newpos, otherplayerpos, newpos) 
         wins += newwins * freq
         losses += newlosses * freq
-    MEMO[curplayerscore, otherscore, curplayerpos, otherplayerpos] = wins, losses
     return wins, losses
+
+
 p1pos = 10
 p1score = 0
 p2pos = 3
@@ -55,4 +55,4 @@ while True:
         break
     
 poss = getpossibilities(0, 0, 10, 3)
-print(f"part 2 {poss} {poss[1] - poss[0]}")
+print(f"part 2 {sorted(poss)} ")
