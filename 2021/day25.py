@@ -1,18 +1,6 @@
-from collections import defaultdict
-from itertools import permutations, product
-import string
-import numpy
-from enum import Enum
-import sys
-import heapq
-import math
-from util import getlines, getblankseparated, tokenedlines, as_ints
-import io
-import itertools
-from functools import cache
+from util import getlines
 file = "25"
 #file = "25small"
-
 
 def parse(lines):
     south = set()
@@ -23,8 +11,7 @@ def parse(lines):
                 east.add((i, j))
             elif char == 'v':
                 south.add((i, j))
-    return south, east
-    
+    return south, east    
 
 def pos(i, j, lines):
     if i >= len(lines):
